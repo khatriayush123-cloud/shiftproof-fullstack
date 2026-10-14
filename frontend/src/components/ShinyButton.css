@@ -1,0 +1,104 @@
+/* ShinyButton.css — animated gradient CTA button for the login screen only.
+
+   Restyled to ShiftProof design tokens:
+   - Background: ink (#123039)
+   - Highlight: teal (#0E6B7B)
+   - No blue. No red. Each colour has exactly one job.
+*/
+
+.shiny-button {
+  --shiny-cta-bg: #123039;
+  --shiny-cta-bg-subtle: #1B4652;
+  --shiny-cta-fg: #FFFFFF;
+  --shiny-cta-highlight: #0E6B7B;
+  --shiny-cta-highlight-subtle: #7FC4CE;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 16px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--shiny-cta-fg);
+  background: linear-gradient(
+    135deg,
+    var(--shiny-cta-bg) 0%,
+    var(--shiny-cta-bg-subtle) 100%
+  );
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.shiny-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--shiny-cta-highlight) 40%,
+    var(--shiny-cta-highlight-subtle) 50%,
+    var(--shiny-cta-highlight) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  animation: shiny-button-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.shiny-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(14, 107, 123, 0.3);
+  pointer-events: none;
+}
+
+.shiny-button:hover {
+  box-shadow: 0 0 20px rgba(14, 107, 123, 0.3);
+}
+
+.shiny-button:hover::before {
+  opacity: 0.6;
+  animation-play-state: running;
+}
+
+.shiny-button:active {
+  transform: scale(0.98);
+}
+
+@keyframes shiny-button-shimmer {
+  0% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    background-position: -200% 0;
+    opacity: 0;
+  }
+}
+
+/* Disable gradient and shimmer animations for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .shiny-button::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .shiny-button:hover::before {
+    opacity: 0;
+  }
+}

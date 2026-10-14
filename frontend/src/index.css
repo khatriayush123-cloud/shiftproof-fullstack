@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FAF7F2;
+  --color-card: #FFFFFF;
+  --color-ink: #123039;
+  --color-muted: #64757B;
+  --color-border: #D9D1C4;
+  --color-teal: #0E6B7B;
+  --color-caution: #D08B1F;
+  --color-breach: #B23A2F;
+  --color-money: #2E7D5B;
+
+  --font-heading: "Fraunces", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Default body font and smooth rendering */
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular figures for all number displays */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Fix Chrome autofill overriding design tokens with pale blue */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #123039;
+  -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Toast slide-in animation */
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.animate-slide-in {
+  animation: slide-in 300ms ease-out;
+}
+
+/* Skeleton pulse */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+.animate-skeleton {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-in { animation: none; }
+  .animate-skeleton { animation: none; opacity: 0.5; }
+  .animate-conic-spin { animation: none; }
+}
+
+/* Background noise texture — 2% opacity over paper background */
+.bg-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Radial teal glow for main content area */
+.bg-teal-glow::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(14,107,123,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Slow conic gradient for auth screen ink panel */
+.animate-conic-spin {
+  animation: conic-spin 20s linear infinite;
+}
+@keyframes conic-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Card lift on hover */
+.card-lift {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(18,48,57,0.06), 0 8px 24px rgba(18,48,57,0.08);
+}
+
+/* Table row highlight */
+tr.row-highlight {
+  transition: background-color 150ms ease;
+}
+tr.row-highlight:hover {
+  background-color: rgba(14,107,123,0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift { transition: none; }
+  .card-lift:hover { transform: none; }
+  .row-highlight { transition: none; }
+}
